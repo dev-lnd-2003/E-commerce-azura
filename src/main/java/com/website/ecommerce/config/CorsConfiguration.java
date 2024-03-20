@@ -15,11 +15,14 @@ public class CorsConfiguration {
     public WebMvcConfigurer corsConfigurer(){
         return new WebMvcConfigurer() {
             @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/admin/**")
+            public void addCorsMappings(CorsRegistry corsRegistry) {
+                corsRegistry.addMapping("/**")
                         .allowedOrigins("http://localhost:4200")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*");
+                        .allowedMethods(HttpMethod.GET.name(),
+                                HttpMethod.POST.name(),
+                                HttpMethod.DELETE.name())
+                        .allowedHeaders(HttpHeaders.CONTENT_TYPE,
+                                HttpHeaders.AUTHORIZATION);
             }
         };
     }
